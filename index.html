@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Website resmi SEMAR KOIN RAKYAT ($SMR).">
+  <title>SEMAR KOIN RAKYAT — $SMR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="comic-sun sun-1"></div><div class="comic-sun sun-2"></div>
+  <div class="speed-lines"></div>
+
+  <header id="header">
+    <nav class="nav-container">
+      <a href="#" class="brand">
+        <img src="assets/images/logo.png" alt="Logo SEMAR" class="logo-img">
+        <span>SEMAR <b>KOIN RAKYAT</b></span>
+      </a>
+      <div class="nav-links">
+        <a href="#pasar">Pasar</a><a href="#swap">Swap</a><a href="#tokenomics">Token</a>
+      </div>
+      <button class="comic-btn small" id="connectWalletBtn" onclick="connectWallet()"><i class="fa-solid fa-wallet"></i> <span id="btnWalletText">Connect Wallet</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="speech"><span>WADUH!</span> Koin rakyat datang! 💥</div>
+        <p class="eyebrow">✦ MEME COIN NUSANTARA ✦</p>
+        <h1>SEMAR<br><span>KOIN RAKYAT</span></h1>
+        <p class="hero-desc">Membawa karakter Semar ke dunia Web3 dengan tampilan santai, transparan, dan mudah dipahami. <b>DYOR selalu!</b></p>
+
+        <div class="contract comic-card">
+          <div><small>ALAMAT KONTRAK</small><code id="contractAddr">0x90F9F3794Bd2Ee4C05cEB720f21D98D626393502</code></div>
+          <button class="icon-btn" onclick="copyContract()" title="Salin"><i class="fa-regular fa-copy"></i></button>
+        </div>
+        <div class="hero-actions">
+          <a class="comic-btn" href="#swap">🚀 Lihat Swap</a>
+          <a class="comic-btn blue" id="dexHeroBtn" href="#pasar">📈 Chart DEX</a>
+        </div>
+        <div class="wallet-network" id="walletNetwork">Wallet: belum terhubung</div>
+        <div class="mini-note">Supply maksimum: <b>24.112.005 SMR</b> · Desimal: <b>16</b> · Fee kontrak: <b>0,2%</b> (sesuai konfigurasi kontrak, verifikasi sendiri).</div>
+      </div>
+
+      <div class="hero-art">
+        <div class="burst">SMR!</div>
+        <div class="coin-card">
+          <div class="coin-ring"></div>
+          <img src="assets/images/logo.png" alt="Semar" class="hero-logo">
+          <div class="coin-label">$SMR</div>
+        </div>
+        <div class="comic-caption">"Dari rakyat, buat seru-seruan bareng!"</div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="pasar">
+      <div class="section-heading"><span class="panel-tag">PANEL 01</span><h2>PASAR <span>LIVE</span> 📊</h2><p>Harga dan data pasar sebaiknya diambil dari pair DEX yang benar-benar aktif.</p></div>
+      <div class="market-grid">
+        <div class="comic-card market-card">
+          <div class="card-top"><h3>📈 DEX SCREENER</h3><span class="status" id="dexStatus">PAIR BELUM DIISI</span></div>
+          <div class="dex-frame-wrap" id="dexFrameWrap">
+            <div class="dex-placeholder"><div class="big-emoji">🗿</div><h3>CHART BELUM TERHUBUNG</h3><p>Setelah liquidity dibuat dan Pair/Pool Address sudah diketahui, masukkan alamatnya ke <code>js/main.js</code>.</p><button class="comic-btn small blue" onclick="showDexSetup()">Cara pasang</button></div>
+          </div>
+          <a id="dexLink" class="text-link disabled" href="#" target="_blank" rel="noopener noreferrer">Buka DEX Screener ↗</a>
+        </div>
+
+        <div class="comic-card info-card">
+          <h3>🧾 DATA TOKEN</h3>
+          <div class="data-row"><span>Token</span><b>SEMAR (SMR)</b></div>
+          <div class="data-row"><span>Max Supply</span><b>24.112.005 SMR</b></div>
+          <div class="data-row"><span>Decimals</span><b>16</b></div>
+          <div class="data-row"><span>Fee</span><b>0,2%</b></div>
+          <div class="data-row"><span>Liquidity</span><b id="lpStatus">Belum diverifikasi</b></div>
+          <div class="warning">⚠️ Jangan tampilkan LP terkunci, renounced, harga, atau volume sebagai fakta sebelum benar-benar diverifikasi di blockchain/DEX.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="swap">
+      <div class="section-heading"><span class="panel-tag">PANEL 02</span><h2>SWAP <span>ZONE</span> 🔄</h2><p>Kalkulator di bawah hanya estimasi. Tombol tidak mengklaim transaksi telah dilakukan.</p></div>
+      <div class="swap-card comic-card">
+        <div class="swap-box">
+          <label>ANDA BAYAR <span>Saldo: <b id="userBalanceBNB">—</b></span></label>
+          <div class="amount-row"><input type="number" id="payAmount" min="0" step="any" value="0.1" oninput="calculateSwap()"><strong>BNB</strong></div>
+        </div>
+        <button class="swap-arrow" onclick="switchTokens()">↕</button>
+        <div class="swap-box">
+          <label>ESTIMASI DITERIMA <span>Saldo: <b id="userBalanceSemar">—</b></span></label>
+          <div class="amount-row"><input type="text" id="getAmount" value="—" readonly><strong>SMR</strong></div>
+        </div>
+        <div class="swap-meta"><span>Slippage: <b>0,5%</b></span><span id="quoteNote">Harga belum tersedia</span></div>
+        <button class="comic-btn full" onclick="executeSwap()">⚡ HUBUNGKAN & SWAP</button>
+      </div>
+    </section>
+
+    <section class="wrap section" id="tokenomics">
+      <div class="section-heading"><span class="panel-tag">PANEL 03</span><h2>TOKENOMICS <span>RAKYAT</span> 🪙</h2></div>
+      <div class="token-grid">
+        <div class="comic-card token-poster"><div class="poster-bubble">MAX SUPPLY!</div><strong>24.112.005</strong><span>SMR</span><small>16 DECIMALS</small></div>
+        <div class="stats-grid">
+          <div class="comic-card stat"><span>💰 SUPPLY</span><b>24.112.005</b><small>SMR maksimum</small></div>
+          <div class="comic-card stat"><span>🧮 DECIMALS</span><b>16</b><small>sesuai spesifikasi</small></div>
+          <div class="comic-card stat"><span>🧾 FEE</span><b>0,2%</b><small>sesuai konfigurasi kontrak</small></div>
+          <div class="comic-card stat"><span>💧 LIQUIDITY</span><b>CHECK</b><small>verifikasi setelah LP dibuat</small></div>
+        </div>
+      </div>
+    </section>
+
+      </main>
+
+  <footer class="footer"><div class="wrap footer-inner"><div><div class="brand"><img src="assets/images/logo.png" class="logo-img" alt="Semar"><span>SEMAR <b>KOIN RAKYAT</b></span></div><p>Website komunitas. Bukan nasihat investasi.</p></div><div class="footer-links"><a href="#pasar">Pasar</a><a href="#swap">Swap</a><a href="#tokenomics">Tokenomics</a></div></div><div class="copyright">© 2026 SEMAR KOIN RAKYAT · DYOR</div></footer>
+  <div class="toast" id="toast"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
